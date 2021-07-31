@@ -1,3 +1,4 @@
+package com.semprenotas.semprenotas.model;
 import java.util.*;
 import java.time.*;
 

@@ -1,3 +1,4 @@
+package com.semprenotas.semprenotas.model;
 import java.time.*;
 
 abstract class Nota {
