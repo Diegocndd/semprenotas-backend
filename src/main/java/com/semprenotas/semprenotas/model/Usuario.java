@@ -1,50 +1,70 @@
 package com.semprenotas.semprenotas.model;
 import java.util.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import java.time.*;
 
-class Usuario {
-    Integer id;
-    String name;
-    String password;
+@Entity
+public class Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String password;
+
     HashSet<Evento> calendar;
     HashSet<Anotacao> notas;
 
-    Usuario(Integer id, String name, String password) {
-        this.id = id;
-        setName(name);
-        setPassword(password);
-    }
-
-    Boolean addAnotacao(Anotacao anotacao) {
+    public Boolean addAnotacao(Anotacao anotacao) {
         return notas.add(anotacao);
     }
 
-    Boolean removeAnotacao(Anotacao anotacao) {
+    public Boolean removeAnotacao(Anotacao anotacao) {
         return notas.remove(anotacao);
     }
 
-    Boolean addEvent(Evento event) {
+    public Boolean addEvent(Evento event) {
         return calendar.add(event);
     }
 
-    Boolean removeEvent(Evento event) {
+    public Boolean removeEvent(Evento event) {
         return calendar.remove(event);
     }
 
-    void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    String getName() {
-        return this.name;
+    public String getName() {
+        return name;
     }
 
-    void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    String getPassword() {
-        return this.password;
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
 }
