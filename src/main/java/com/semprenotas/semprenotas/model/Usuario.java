@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 import java.time.*;
 
@@ -23,7 +24,12 @@ public class Usuario {
     private String password;
 
     HashSet<Evento> calendar;
-    HashSet<Anotacao> notas;
+
+    @Lob
+    HashSet<Anotacao> notas = new HashSet<>();
+
+    @Column
+    String token;
 
     public Boolean addAnotacao(Anotacao anotacao) {
         return notas.add(anotacao);
@@ -55,6 +61,26 @@ public class Usuario {
 
     public String getPassword() {
         return password;
+    }
+
+    public HashSet<Anotacao> getNotas() {
+        return notas;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setNotas(HashSet<Anotacao> notas) {
+        this.notas = notas;
     }
 
     @Override

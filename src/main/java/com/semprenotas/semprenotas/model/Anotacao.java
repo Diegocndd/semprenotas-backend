@@ -1,37 +1,68 @@
 package com.semprenotas.semprenotas.model;
 import java.util.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+import java.io.Serializable;
 import java.time.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-class Anotacao extends Nota {
-    /*Utilizei uma implementação de Set para eviter elementos duplicados*/
-    HashSet<String> tags;
+@Entity
+public class Anotacao implements Serializable {
 
-    Anotacao(String title, String description, Integer id) {
-        super.setTitle(title);
-        super.setDescription(description);
-        this.setCreationDate();
-        super.setId(id);
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private String title;
+
+    private LocalDate creation_date = LocalDate.now();
+
+    private String description;
+
+    /*Utilizada uma implementação de HashSet para evitar elementos duplicados*/
+    HashSet<String> tags = new HashSet<>();
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
+    public String getTitle() {
+        return this.title;
+    }
 
-    /*Sempre usando a tag toda em caixa baixa, para que a capitalização utilizada pelo usuário seja
-    * irrelevante*/
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    Boolean addTag(String tag) {
+    public String getDescription() {
+        return this.description;
+    }
+
+    public LocalDate getDate() {
+        return this.creation_date;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Boolean addTag(String tag) {
         return tags.add(tag.toLowerCase());
     }
 
-    Boolean removeTag(String tag) {
+    public Boolean removeTag(String tag) {
         return tags.remove(tag.toLowerCase());
     }
 
-    Boolean hasTag(String tag) {
+    public Boolean hasTag(String tag) {
         return tags.contains(tag.toLowerCase());
     }
-
-    private void setCreationDate() {
-        this.creation_date = LocalDate.now();
-    }
-
-
 }

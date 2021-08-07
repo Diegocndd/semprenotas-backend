@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,9 +25,13 @@ public class LoginController {
     @PostMapping
     public String login(@RequestBody Usuario usuario){
         List<Usuario> passwordUser = UsuarioRepository.findByName(usuario.getName());
-
+        
         if (passwordUser.get(0).getPassword().equals(usuario.getPassword())) {
-            return "User logged";
+            String tokenUser = Token.generateRandomToken(20);
+            usuario.setToken(tokenUser);
+            UsuarioRepository.delete(passwordUser.get(0));
+            UsuarioRepository.save(usuario);
+            return usuario.getToken();
         } else {
             return "Password or username incorrect";
         }
