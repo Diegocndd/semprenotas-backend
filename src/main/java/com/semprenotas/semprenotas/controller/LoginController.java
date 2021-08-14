@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,10 +27,14 @@ public class LoginController {
         
         if (passwordUser.get(0).getPassword().equals(usuario.getPassword())) {
             String tokenUser = Token.generateRandomToken(20);
-            usuario.setToken(tokenUser);
+            Usuario newUser = new Usuario();
+            newUser.setName(usuario.getName());
+            newUser.setPassword(usuario.getPassword());
+            newUser.setNotas(passwordUser.get(0).getNotas());
+            newUser.setToken(tokenUser);
             UsuarioRepository.delete(passwordUser.get(0));
-            UsuarioRepository.save(usuario);
-            return usuario.getToken();
+            UsuarioRepository.save(newUser);
+            return newUser.getToken();
         } else {
             return "Password or username incorrect";
         }
