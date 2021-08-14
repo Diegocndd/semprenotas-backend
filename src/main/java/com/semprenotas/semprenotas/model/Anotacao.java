@@ -1,7 +1,6 @@
 package com.semprenotas.semprenotas.model;
 import java.util.*;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import java.io.Serializable;
