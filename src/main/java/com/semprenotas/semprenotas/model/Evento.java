@@ -1,16 +1,19 @@
 package com.semprenotas.semprenotas.model;
 import java.util.*;
+import java.text.*;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import java.io.Serializable;
 import java.time.*;
 
-class Evento {
+@Entity
+public class Evento implements Serializable {
     LocalDate due_date;
-    HashSet<Usuario> participants;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,17 +22,33 @@ class Evento {
     @Column(nullable = false)
     String title;
 
+    @Column(nullable = false)
+    String dateEvent;
+
     LocalDate creation_date = LocalDate.now();
+
+    @Column(nullable = false)
+    Date eventDate = new Date();
 
     @Column(nullable = false)
     String description;
 
-    public Evento(String title, String description, Integer id, LocalDate due_date) {
-        this.setTitle(title);
-        this.setDescription(description);
-        this.setCreationDate();
-        this.setId(id);
-        this.due_date = due_date;
+    public Evento() {
+        Format formatter;
+        String s;
+        Date date = new Date();
+
+        formatter = new SimpleDateFormat("dd/MM/yyyy");
+        s = formatter.format(date);
+        this.setDateEvent(s);
+    }
+
+    public void setDateEvent(String dateEvent) {
+        this.dateEvent = dateEvent;
+    }
+
+    public String getDateEvent() {
+        return dateEvent;
     }
 
     public void setTitle(String title) {
@@ -56,19 +75,7 @@ class Evento {
         this.id = id;
     }
 
-    Boolean addParticipant(Usuario participant) {
-        return participants.add(participant);
-    }
-
-    Boolean removeParticipant(Usuario participant) {
-        return participants.remove(participant);
-    }
-
-    private void setCreationDate() {
-        this.creation_date = LocalDate.now();
-    }
-
-    LocalDate getDueDate() {
-        return this.getDueDate();
+    public Integer getId() {
+        return id;
     }
 }
