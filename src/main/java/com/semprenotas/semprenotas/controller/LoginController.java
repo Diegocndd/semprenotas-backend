@@ -31,6 +31,7 @@ public class LoginController {
             newUser.setName(usuario.getName());
             newUser.setPassword(usuario.getPassword());
             newUser.setNotas(passwordUser.get(0).getNotas());
+            newUser.setCalendar(passwordUser.get(0).getCalendar());
             newUser.setToken(tokenUser);
             UsuarioRepository.delete(passwordUser.get(0));
             UsuarioRepository.save(newUser);

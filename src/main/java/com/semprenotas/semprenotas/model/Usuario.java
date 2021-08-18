@@ -21,7 +21,8 @@ public class Usuario {
     @Column(nullable = false)
     private String password;
 
-    HashSet<Evento> calendar;
+    @Lob
+    HashSet<Evento> calendar = new HashSet<>();
 
     @Lob
     HashSet<Anotacao> notas = new HashSet<>();
@@ -76,9 +77,17 @@ public class Usuario {
     public Integer getId() {
         return id;
     }
+    
+    public HashSet<Evento> getCalendar() {
+        return calendar;
+    }
 
     public void setNotas(HashSet<Anotacao> notas) {
         this.notas = notas;
+    }
+
+    public void setCalendar(HashSet<Evento> calendar) {
+        this.calendar = calendar;
     }
 
     @Override
